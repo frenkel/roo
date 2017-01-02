@@ -176,6 +176,13 @@ class TestRooExcelx < Minitest::Test
     assert_equal expected_sheet_names, xlsx.sheets
   end
 
+  def test_header_offset
+    xlsx = Roo::Excelx.new(File.join(TESTDIR, "header_offset.xlsx"))
+    data = xlsx.parse(column_1: 'Header A1', column_2: 'Header B1')
+    assert_equal 'Data A2', data[0][:column_1]
+    assert_equal 'Data B2', data[0][:column_2]
+  end
+
   def roo_class
     Roo::Excelx
   end
